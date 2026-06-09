@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Calculator</title>
+<style>
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1d2671, #c33764);
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-show {
+  width: 340px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 1s ease-in-out;
+}
+
+.head-main {
+  margin-bottom: 20px;
+}
+
+.head-cal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.head-cal h3 {
+  font-size: 22px;
+  color: #333;
+}
+
+.head-cal i {
+  font-size: 20px;
+  color: #666;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input input {
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #c33764;
+  border-radius: 10px;
+  outline: none;
+  background: #f9f9f9;
+  text-align: right;
+  transition: 0.3s;
+}
+
+.input input:focus {
+  border-color: #1d2671;
+  box-shadow: 0 0 8px rgba(29, 38, 113, 0.6);
+}
+
+.number {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.displayNum {
+  display: flex;
+  justify-content: space-between;
+}
+.displayNum button {
+  flex: 1;
+  margin: 5px;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+.displayNum button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+.color {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b) !important;
+}
+.color:hover {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c) !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+    <div class="result-show">
+    <div class="head-main">
+    <div class="head-cal">
+          <h3>Calculator</h3>
+          <i class="fa-solid fa-clock-rotate-left"></i>
+    </div>
+    <div class="input">
+          <input type="text" id="save">
+          <input type="text" id="inputResult">
+    </div>
+    </div>
+<div class="number">
+<div class="displayNum">
+          <button id="number" onclick="clc('')">AC</button>
+          <button id="number" onclick="del()">⌫<i class="fa-solid fa-delete-left"></i></button>
+          <button id="number" onclick="setnumber('%')">%</button>
+          <button id="number" class="color" onclick="setnumber('/')">÷<i class="fa-solid fa-divide"></i></button>
+                    
+    </div>
+    <div class="displayNum">
+          <button id="number" onclick="setnumber(7)">7</button>
+          <button id="number" onclick="setnumber(8)">8</button>
+          <button id="number" onclick="setnumber(9)">9</button>
+          <button id="number" class="color" onclick="setnumber('*')">X</button>
+                    
+    </div>
+    <div class="displayNum">
+          <button id="number" onclick="setnumber(5)">5</button>
+          <button id="number" onclick="setnumber(4)">4</button>
+          <button id="number" onclick="setnumber(6)">6</button>
+          <button id="number" class="color" onclick="setnumber('-')">-</button>
+    </div>
+    <div class="displayNum">
+          <button id="number" onclick="setnumber(1)">1</button>
+          <button id="number" onclick="setnumber(2)">2</button>
+          <button id="number" onclick="setnumber(3)">3</button>
+          <button id="number" class="color" onclick="setnumber('+')">+</button>
+    </div>
+    <div class="displayNum">
+          <button id="number" onclick="setnumber('.')">.</button>
+          <button id="number" onclick="setnumber(0)">0</button>
+          <button id="number" onclick="setnumber('-')">+/-</button>
+          <button id="number" class="color" onclick="getResult()">=</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+<script>function setnumber(num){
+    var inputResult = document.getElementById("inputResult")
+    var save = document.getElementById("save")
+    var lastval = inputResult.value.slice(inputResult.value.length -1)
+    console.log(lastval)
+
+    var operator = ["+","*","-","/","%"]
+    if(operator.indexOf(lastval) !== -1  && operator.indexOf(num) !== -1){
+        inputResult.value = inputResult.value.slice(0,-1) + num
+        save.value = save.value.slice(0,-1) + num
+    }
+    else{
+        inputResult.value +=num
+        save.value +=num
+    }
+}
+
+function del(){
+    var inputResult = document.getElementById("inputResult")
+    var save = document.getElementById("save")
+    inputResult.value = inputResult.value.slice(0,-1)
+    save.value = save.value.slice(0,-1)
+}
+
+function clc(){
+    var inputResult = document.getElementById("inputResult")
+    inputResult.value = ''
+    var save = document.getElementById("save")
+    save.value = ''
+}
+
+function getResult(){
+    var getResult = document.getElementById("inputResult")
+    getResult.value = eval(getResult.value)
+
+}</script>
+
+</body>
+</html>
